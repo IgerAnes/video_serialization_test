@@ -3,7 +3,7 @@ import socket
 import cv2
 
 # setup server parameter
-HOST = "192.168.50.248"
+HOST = "0.0.0.0"
 PORT = 6000
 HEADERSIZE = 10
 FORMAT = 'utf-8'
@@ -19,10 +19,9 @@ print("[SERVER] Start to listen to client connection ...")
 print("Start to accept connection")
 conn, addr = socketServer.accept() # this cmd. will wait until receive next connection
 print(f"[SERVER] Receive data from {addr}")
-
+counter = 0
 while True:
     data = b""
-    
     data_len = conn.recv(HEADERSIZE).decode(FORMAT)
     print(f"[SERVER] Receive data length")
     
@@ -40,6 +39,9 @@ while True:
             
         # convert byte data to python object by pickle
         origin_data = pickle.loads(data[:data_len])
+        counter += 1
+        cv2.putText(origin_data, f"Counter: {counter}", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 
+                    1, (255, 100, 50), 1 , cv2.LINE_AA)
         cv2.imshow("Receive", origin_data)
         
     if cv2.waitKey(1) & 0xFF == ord('q'):

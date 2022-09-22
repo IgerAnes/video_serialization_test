@@ -32,8 +32,8 @@ while cam.isOpened():
     # send frame with counter
     counter += 1
     current_time = time.time()
-    cv2.putText(frame, f"Counter: {counter}", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 
-                    1, (255, 100, 50), 1 , cv2.LINE_AA)
+    # cv2.putText(frame, f"Counter: {counter}", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 
+    #                 1, (255, 100, 50), 1 , cv2.LINE_AA)
         
     # transfer frame data to byte
     data = pickle.dumps(frame)
@@ -47,7 +47,8 @@ while cam.isOpened():
     
     # show image
     cv2.imshow('Webcam', frame)
-    
+    # receive_data = socketClient.recv(4096).decode(FORMAT)
+    # print(f"[Server] responce: {receive_data}")
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
